@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Community Resource Hub</title>
 
+<!-- ICONIC TYPOGRAPHY -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
-/* =========================
-   ACCESSIBLE DESIGN SYSTEM
-   ========================= */
 :root{
   --primary:#8ecae6;
   --secondary:#f4a7b9;
@@ -26,435 +26,275 @@
 *{box-sizing:border-box;}
 body{
   margin:0;
-  font-family:"Segoe UI",sans-serif;
+  font-family:'Inter',sans-serif;
   background:var(--bg);
   color:var(--text);
-  scroll-behavior:smooth;
-  line-height:1.6;
+  line-height:1.7;
 }
 
-/* FOCUS INDICATORS */
-:focus{
-  outline:3px solid var(--primary);
-  outline-offset:4px;
-}
-
-/* REDUCED MOTION */
+/* ACCESSIBILITY */
+:focus{outline:3px solid var(--primary);outline-offset:4px;}
 @media (prefers-reduced-motion: reduce){
-  *{
-    animation:none !important;
-    transition:none !important;
-  }
+  *{animation:none!important;transition:none!important;}
 }
 
 /* INTRO */
 #intro{
-  position:fixed;
-  inset:0;
+  position:fixed;inset:0;
   background:linear-gradient(120deg,var(--primary),var(--accent));
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  display:flex;align-items:center;justify-content:center;
   z-index:9999;
 }
 .intro-box{
   background:white;
-  padding:60px;
-  border-radius:36px;
+  padding:70px;
+  border-radius:40px;
   text-align:center;
 }
-
-/* SKIP LINK */
-.skip{
-  position:absolute;
-  left:-999px;
-  top:10px;
-  background:black;
-  color:white;
-  padding:10px;
-}
-.skip:focus{left:10px;}
 
 /* NAV */
 nav{
-  position:sticky;
-  top:0;
+  position:sticky;top:0;
   background:rgba(255,255,255,.9);
   backdrop-filter:blur(8px);
-  padding:15px;
-  text-align:center;
-  z-index:10;
+  padding:15px;text-align:center;z-index:10;
 }
 nav a,nav button{
-  background:none;
-  border:none;
-  font-weight:600;
-  font-size:16px;
-  margin:0 12px;
-  cursor:pointer;
+  background:none;border:none;
+  font-weight:600;font-size:16px;
+  margin:0 12px;cursor:pointer;
   min-height:44px;
 }
 
 /* HERO */
 header{
-  padding:120px 20px;
+  padding:130px 20px;
   background:linear-gradient(120deg,var(--primary),var(--accent));
-  color:white;
-  text-align:center;
+  color:white;text-align:center;
 }
-header h1{font-size:3rem;}
-header p{max-width:720px;margin:auto;font-size:1.2rem;}
-header em{display:block;margin-top:20px;opacity:.9;}
+header h1{
+  font-family:'Playfair Display',serif;
+  font-size:3.2rem;
+}
+.manifesto{
+  font-family:'Playfair Display',serif;
+  font-size:1.4rem;
+  margin-top:30px;
+  opacity:.95;
+}
 
 /* SECTIONS */
-section{
-  max-width:1200px;
-  margin:auto;
-  padding:90px 20px;
+section{max-width:1200px;margin:auto;padding:100px 20px;}
+h2{
+  font-family:'Playfair Display',serif;
+  text-align:center;margin-bottom:40px;
 }
-h2{text-align:center;margin-bottom:40px;}
+
+/* CALM MOMENT */
+.calm{
+  background:linear-gradient(120deg,#edf6f9,#fdf0f5);
+  padding:130px 20px;text-align:center;
+}
+.calm p{
+  font-family:'Playfair Display',serif;
+  font-size:1.9rem;
+  max-width:720px;margin:auto;
+}
 
 /* GRID */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:25px;
+  gap:28px;
 }
 .card{
   background:var(--card);
-  padding:32px;
-  border-radius:28px;
-  box-shadow:0 12px 30px rgba(0,0,0,.08);
-  transition:.3s;
+  padding:36px;border-radius:32px;
+  box-shadow:0 15px 40px rgba(0,0,0,.08);
+  transition:.35s ease;
 }
-.card:hover{transform:translateY(-6px);}
-.card:active{transform:scale(.98);}
+.card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 25px 60px rgba(0,0,0,.12);
+}
+button:active{transform:scale(.97);}
 
 .badge{
   background:var(--secondary);
   padding:6px 14px;
   border-radius:20px;
   font-size:12px;
-  display:inline-block;
-  margin-bottom:10px;
+  display:inline-block;margin-bottom:10px;
 }
 
 /* CONTROLS */
 .controls{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-bottom:30px;
+  display:flex;flex-wrap:wrap;
+  justify-content:center;gap:12px;margin-bottom:30px;
 }
 input,select,textarea{
-  padding:12px;
-  border-radius:14px;
+  padding:14px;border-radius:16px;
   border:1px solid #ccc;
-  font-size:16px;
-  min-height:44px;
-  width:100%;
+  min-height:44px;font-size:16px;
 }
 button.action{
   background:var(--primary);
-  color:white;
-  padding:12px 18px;
-  border-radius:14px;
-  border:none;
-}
-
-/* STATS */
-.stats{
-  display:flex;
-  justify-content:center;
-  gap:25px;
-  flex-wrap:wrap;
-}
-.stat{
-  background:var(--card);
-  padding:30px;
-  width:220px;
-  border-radius:28px;
-  text-align:center;
-}
-
-/* REVEAL */
-.reveal{
-  opacity:0;
-  transform:translateY(30px);
-  transition:.6s;
-}
-.reveal.active{
-  opacity:1;
-  transform:none;
+  color:white;border:none;
+  padding:14px 20px;border-radius:16px;
 }
 
 /* CHATBOT */
 #chatbot{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  width:300px;
-  background:white;
-  border-radius:28px;
-  box-shadow:0 20px 50px rgba(0,0,0,.25);
-  overflow:hidden;
-  font-size:14px;
+  position:fixed;bottom:20px;right:20px;
+  width:300px;background:white;
+  border-radius:30px;
+  box-shadow:0 25px 60px rgba(0,0,0,.25);
 }
 #chat-header{
   background:var(--accent);
-  color:white;
-  padding:14px;
-  text-align:center;
+  color:white;padding:14px;text-align:center;
   font-weight:bold;
 }
-#chat-body{
-  height:220px;
-  padding:12px;
-  overflow-y:auto;
-}
-#chat-input{
-  width:100%;
-  padding:12px;
-  border:none;
-  border-top:1px solid #eee;
-}
+#chat-body{height:220px;padding:12px;overflow-y:auto;}
+#chat-input{width:100%;padding:12px;border:none;border-top:1px solid #eee;}
 
 /* FOOTER */
 footer{
   background:var(--accent);
-  color:white;
-  text-align:center;
-  padding:35px;
+  color:white;text-align:center;
+  padding:45px;
+}
+.whisper{
+  font-family:'Playfair Display',serif;
+  opacity:.85;margin-bottom:15px;
 }
 </style>
 </head>
 
 <body>
 
-<div id="intro" role="dialog" aria-label="Welcome screen">
+<div id="intro">
   <div class="intro-box">
-    <h1>Welcome to Your Community</h1>
-    <p>Support should never be hard to find.</p>
-    <button class="action" onclick="enterSite()">Enter the Hub</button>
+    <h1>Welcome</h1>
+    <p>Support should feel calm, not complicated.</p>
+    <button class="action" onclick="enter()">Enter the Hub</button>
   </div>
 </div>
 
-<a href="#highlights" class="skip">Skip to content</a>
-
-<nav aria-label="Main navigation">
-  <a href="#highlights">Highlights</a>
-  <a href="#directory">Resources</a>
-  <a href="#events">Events</a>
-  <a href="#submit">Submit</a>
-  <button onclick="toggleTheme()" aria-label="Toggle light and dark mode">🌗</button>
-  <button onclick="emergency()" aria-label="Emergency help resources">🚨 Emergency</button>
+<nav>
+  <a href="#support">Find Support</a>
+  <a href="#impact">Our Shared Impact</a>
+  <a href="#submit">Strengthen the Community</a>
+  <button onclick="toggle()">🌗</button>
 </nav>
-
-<div id="welcome" style="text-align:center;padding:15px;"></div>
 
 <header>
 <h1>Community Resource Hub</h1>
-<p>
-Support should be easy to find.
-This hub brings real people, real help, and real hope together.
-</p>
-<em>Built for neighbors. Powered by care.</em>
+<p class="manifesto">Support should feel calm, clear, and human.</p>
 </header>
 
-<section class="reveal">
-<h2>What Do You Need Right Now?</h2>
-<div class="grid">
-  <button class="card" onclick="quickFilter('Food')">🥗 I need food</button>
-  <button class="card" onclick="quickFilter('Health')">🧠 I need support</button>
-  <button class="card" onclick="quickFilter('Youth')">🎓 I need programs</button>
-  <button class="card" onclick="quickFilter('all')">🌍 Show everything</button>
-</div>
-</section>
-
-<section id="highlights" class="reveal">
-<h2>Featured Community Resources</h2>
-<div class="grid">
-  <div class="card">🥗 Community Food Pantry</div>
-  <div class="card">🧠 Mental Health Support Line</div>
-  <div class="card">🎓 Youth Learning Center</div>
-</div>
-</section>
-
-<section id="directory" class="reveal">
-<h2>Resource Directory</h2>
+<section id="support">
+<h2>Find Support</h2>
 <div class="controls">
-  <button onclick="setCategory('all')">All</button>
-  <button onclick="setCategory('Food')">🥗 Food</button>
-  <button onclick="setCategory('Health')">🧠 Mental Health</button>
-  <button onclick="setCategory('Youth')">🎓 Youth</button>
-  <input id="search" placeholder="Search resources..." aria-label="Search resources">
+<button onclick="setCat('all')">All</button>
+<button onclick="setCat('Food')">Food</button>
+<button onclick="setCat('Health')">Mental Health</button>
+<button onclick="setCat('Youth')">Youth</button>
+<input id="search" placeholder="Search resources…">
 </div>
-<div class="grid" id="resourceList" aria-live="polite"></div>
-
-<h3 style="text-align:center;margin-top:50px;">Find Help Near You</h3>
-<iframe
-  title="Map of nearby community services"
-  src="https://www.google.com/maps?q=community+services&output=embed"
-  style="width:100%;height:350px;border:none;border-radius:28px;">
-</iframe>
+<div class="grid" id="list"></div>
 </section>
 
-<section class="reveal">
-<h2>Community Impact</h2>
-<div class="stats">
-  <div class="stat"><h3 class="count" data-target="60">0</h3><p>Resources</p></div>
-  <div class="stat"><h3 class="count" data-target="2000">0</h3><p>Neighbors Helped</p></div>
-  <div class="stat"><h3 class="count" data-target="100">0</h3><p>% Free Access</p></div>
-</div>
-</section>
-
-<section class="reveal">
-<h2>Accessibility Commitment</h2>
-<div class="card" style="max-width:800px;margin:auto;">
+<section class="calm">
 <p>
-This hub was designed to be usable by as many people as possible.
-We prioritized keyboard navigation, screen reader compatibility,
-reduced motion preferences, readable contrast, and plain language.
+Take a breath.<br>
+You are not behind.<br>
+Support exists.
 </p>
-<p>
-Accessibility is not an add-on — it’s part of how community works.
-</p>
+</section>
+
+<section id="impact">
+<h2>Our Shared Impact</h2>
+<div class="grid">
+<div class="card"><h3>60+</h3><p>Community Resources</p></div>
+<div class="card"><h3>2,000+</h3><p>Neighbors Supported</p></div>
+<div class="card"><h3>100%</h3><p>Free Access</p></div>
 </div>
 </section>
 
-<section id="submit" class="reveal">
-<h2>Submit a Community Resource</h2>
-<form onsubmit="addResource(event)">
-<label>
-Organization Name
-<input id="name" required>
-</label><br><br>
-<label>
-Category
-<select id="category" required>
-  <option value="">Choose one</option>
-  <option>Food</option>
-  <option>Health</option>
-  <option>Youth</option>
-</select>
-</label><br><br>
-<label>
-Description
-<textarea id="description" required></textarea>
-</label>
-<small>Use clear, simple language so everyone can understand.</small><br><br>
+<section id="submit">
+<h2>Strengthen the Community</h2>
+<form onsubmit="add(event)" class="card" style="max-width:600px;margin:auto;">
+<input id="name" placeholder="Organization name" required><br><br>
+<select id="cat" required>
+<option value="">Category</option>
+<option>Food</option><option>Health</option><option>Youth</option>
+</select><br><br>
+<textarea id="desc" placeholder="Describe the resource clearly…" required></textarea><br><br>
 <button class="action">Submit Resource</button>
 </form>
 </section>
 
 <footer>
-<p>Designed with empathy • Built for real people</p>
-<p>TSA Community Resource Hub</p>
+<p class="whisper">
+This hub exists so asking for help never feels harder than it already is.
+</p>
+<p>Live site hosted using GitHub Pages</p>
 </footer>
 
-<div id="chatbot" aria-label="Community helper chatbot">
-  <div id="chat-header">Community Helper 💬</div>
-  <div id="chat-body"></div>
-  <input id="chat-input" placeholder="Ask me anything…" aria-label="Chat with community helper">
+<div id="chatbot">
+<div id="chat-header">Community Guide</div>
+<div id="chat-body"></div>
+<input id="chat-input" placeholder="Ask me anything…">
 </div>
 
 <script>
-function enterSite(){document.getElementById("intro").style.display="none";}
-function toggleTheme(){document.body.classList.toggle("dark");}
-function emergency(){
-alert("If this is an emergency:\n\n📞 Call 911\n🧠 Crisis Line: 988\n🏠 Contact local emergency services");
-}
+function enter(){intro.style.display="none";}
+function toggle(){document.body.classList.toggle("dark");}
 
-/* PERSONALIZATION */
-let visits=localStorage.getItem("visits")||0;
-visits++;localStorage.setItem("visits",visits);
-document.getElementById("welcome").innerHTML=
-visits>1?"👋 Welcome back — we're glad you're here."
-:"👋 Welcome — take your time and explore.";
-
-/* RESOURCES */
-const resources=[
-{name:"Community Food Pantry",category:"Food",description:"Free groceries and meals."},
-{name:"Mental Health Support Line",category:"Health",description:"24/7 confidential support."},
-{name:"Youth Learning Center",category:"Youth",description:"Tutoring and mentoring programs."}
+const data=[
+{name:"Community Food Pantry",cat:"Food",desc:"Free groceries and meals."},
+{name:"Mental Health Support Line",cat:"Health",desc:"24/7 confidential support."},
+{name:"Youth Learning Center",cat:"Youth",desc:"Tutoring and mentoring."}
 ];
-let activeCategory="all";
-const list=document.getElementById("resourceList");
+let current="all";
+const list=document.getElementById("list");
 const search=document.getElementById("search");
 
-function setCategory(cat){activeCategory=cat;render();}
-function quickFilter(cat){
-setCategory(cat);
-document.getElementById("directory").scrollIntoView({behavior:"smooth"});
-}
-
+function setCat(c){current=c;render();}
 function render(){
 list.innerHTML="";
-resources.filter(r=>
-(activeCategory==="all"||r.category===activeCategory)&&
+data.filter(r=>
+(current==="all"||r.cat===current)&&
 r.name.toLowerCase().includes(search.value.toLowerCase())
 ).forEach(r=>{
-const div=document.createElement("div");
-div.className="card";
-div.innerHTML=`
-<div class="badge">${r.category}</div>
-<strong>${r.name}</strong><br>
-${r.description}<br><br>
-<button onclick="saveResource('${r.name}')">⭐ Save</button>`;
-list.appendChild(div);
+list.innerHTML+=`
+<div class="card">
+<div class="badge">${r.cat}</div>
+<strong>${r.name}</strong><br>${r.desc}
+</div>`;
 });
 }
-search.addEventListener("input",render);
-render();
+search.oninput=render;render();
 
-function addResource(e){
+function add(e){
 e.preventDefault();
-resources.push({name:name.value,category:category.value,description:description.value});
-alert("Thank you for strengthening the community 💙");
-render();
-e.target.reset();
+data.push({name:name.value,cat:cat.value,desc:desc.value});
+alert("Thank you for strengthening the community.");
+render();e.target.reset();
 }
 
-function saveResource(name){
-let saved=JSON.parse(localStorage.getItem("saved"))||[];
-if(!saved.includes(name)){
-saved.push(name);
-localStorage.setItem("saved",JSON.stringify(saved));
-alert("Saved — you can return to this anytime.");
-}
-}
-
-/* COUNTERS */
-document.querySelectorAll(".count").forEach(c=>{
-let t=+c.dataset.target,n=0,s=t/60;
-(function u(){n+=s;n<t?(c.textContent=Math.floor(n),requestAnimationFrame(u)):c.textContent=t;})();
-});
-
-/* REVEAL */
-window.addEventListener("scroll",()=>document.querySelectorAll(".reveal").forEach(el=>{
-if(el.getBoundingClientRect().top<window.innerHeight-50)el.classList.add("active");
-}));
-
-/* CHATBOT */
-const chatBody=document.getElementById("chat-body");
-const chatInput=document.getElementById("chat-input");
-function bot(m){
-chatBody.innerHTML+=`<p><strong>Bot:</strong> ${m}</p>`;
-chatBody.scrollTop=chatBody.scrollHeight;
-}
-chatInput.addEventListener("keydown",e=>{
+/* CHAT */
+const body=document.getElementById("chat-body");
+const input=document.getElementById("chat-input");
+function bot(m){body.innerHTML+=`<p><strong>Guide:</strong> ${m}</p>`;}
+input.onkeydown=e=>{
 if(e.key==="Enter"){
-const t=chatInput.value.toLowerCase();
-chatBody.innerHTML+=`<p><strong>You:</strong> ${chatInput.value}</p>`;
-chatInput.value="";
-if(t.includes("food"))bot("Let's find food support together 🥗");
-else if(t.includes("mental"))bot("You're not alone — support is available 🧠");
-else if(t.includes("youth"))bot("Here are programs for young people 🎓");
-else if(t.includes("thank"))bot("You're very welcome 💙");
-else bot("It's okay to take this step by step — I’m here.");
-}});
-bot("Hi! I'm here to help — take your time.");
+body.innerHTML+=`<p><strong>You:</strong> ${input.value}</p>`;
+bot("I'm here with you. Let's take this one step at a time.");
+input.value="";
+}};
+bot("Welcome. How can I support you today?");
 </script>
 
 </body>
