@@ -77,6 +77,30 @@ section{
   padding:100px 20px;
 }
 
+/* SECTION HEADERS */
+.section-header{
+  margin-bottom:50px;
+  text-align:center;
+}
+
+.section-header h2{
+  font-size:38px;
+  margin-bottom:10px;
+}
+
+.section-header p{
+  color:#666;
+  font-size:16px;
+}
+
+.divider{
+  width:80px;
+  height:4px;
+  background:var(--accent);
+  margin:15px auto 25px;
+  border-radius:5px;
+}
+
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -148,7 +172,6 @@ footer{
 }
 
 /* CHATBOT */
-
 #chatToggle{
   position:fixed;
   bottom:25px;
@@ -243,11 +266,23 @@ footer{
 </header>
 
 <section id="highlights">
+<div class="section-header">
 <h2>Community Highlights</h2>
+<div class="divider"></div>
+<p>Spotlighting key programs and initiatives.</p>
+</div>
 
 <div class="highlight-banner">
 <h3>🌟 Community Wellness Fair</h3>
 <p>Free health screenings, youth activities, and food distribution this Saturday.</p>
+</div>
+</section>
+
+<section id="resources">
+<div class="section-header">
+<h2>Food & Essential Resources</h2>
+<div class="divider"></div>
+<p>Supporting access to meals, groceries, and basic needs.</p>
 </div>
 
 <div class="grid">
@@ -257,17 +292,13 @@ footer{
 </div>
 </section>
 
-<section id="resources">
-<h2>Resource Listings</h2>
-<div class="grid">
-<div class="card"><span class="badge">Food</span><h3>Soup Kitchen</h3><p>Daily meals available.</p></div>
-<div class="card"><span class="badge">Health</span><h3>Community Clinic</h3><p>Low-cost healthcare.</p></div>
-<div class="card"><span class="badge">Youth</span><h3>Homework Center</h3><p>Free tutoring programs.</p></div>
-</div>
-</section>
-
 <section id="events">
-<h2>Upcoming Events</h2>
+<div class="section-header">
+<h2>Community Events</h2>
+<div class="divider"></div>
+<p>Programs and gatherings that strengthen community engagement.</p>
+</div>
+
 <div class="grid">
 <div class="card"><h3>Neighborhood Clean-Up</h3><p>Saturday 10 AM.</p></div>
 <div class="card"><h3>Tech Workshop</h3><p>Thursday 6 PM.</p></div>
@@ -275,7 +306,12 @@ footer{
 </section>
 
 <section id="news">
-<h2>Community News</h2>
+<div class="section-header">
+<h2>Community News & Updates</h2>
+<div class="divider"></div>
+<p>Recent announcements and developments.</p>
+</div>
+
 <div class="grid">
 <div class="card news-card"><h3>New Community Garden Opens</h3><p>Fresh produce now available.</p></div>
 <div class="card news-card"><h3>Library Expands STEM Programs</h3><p>New youth tech classes added.</p></div>
@@ -283,7 +319,12 @@ footer{
 </section>
 
 <section id="submit">
-<h2>Submit a Resource or Event</h2>
+<div class="section-header">
+<h2>Contribute to the Hub</h2>
+<div class="divider"></div>
+<p>Help expand this resource by submitting new listings or events.</p>
+</div>
+
 <div class="card">
 <form>
 <input placeholder="Name" required>
@@ -308,12 +349,12 @@ footer{
 <div id="chatToggle">💬</div>
 
 <div id="chatBot">
-  <div id="chatHeader">Community Assistant</div>
-  <div id="chatMessages"></div>
-  <div id="chatInputArea">
-    <input type="text" id="userInput" placeholder="Ask about resources...">
-    <button onclick="sendMessage()">Send</button>
-  </div>
+<div id="chatHeader">Community Assistant</div>
+<div id="chatMessages"></div>
+<div id="chatInputArea">
+<input type="text" id="userInput" placeholder="Ask about resources...">
+<button onclick="sendMessage()">Send</button>
+</div>
 </div>
 
 <script>
@@ -322,43 +363,37 @@ const chatBot=document.getElementById("chatBot");
 const chatMessages=document.getElementById("chatMessages");
 
 toggle.onclick=()=>{
-  chatBot.style.display=chatBot.style.display==="flex"?"none":"flex";
+chatBot.style.display=chatBot.style.display==="flex"?"none":"flex";
 };
 
 function sendMessage(){
-  const input=document.getElementById("userInput");
-  const text=input.value.toLowerCase().trim();
-  if(!text)return;
-
-  addMessage(text,"user");
-  input.value="";
-  setTimeout(()=>respond(text),500);
+const input=document.getElementById("userInput");
+const text=input.value.toLowerCase().trim();
+if(!text)return;
+addMessage(text,"user");
+input.value="";
+setTimeout(()=>respond(text),500);
 }
 
 function addMessage(text,type){
-  const msg=document.createElement("div");
-  msg.className="message "+type;
-  if(type==="bot"){
-    msg.innerHTML="<span class='bot'>"+text+"</span>";
-  }else{
-    msg.textContent=text;
-  }
-  chatMessages.appendChild(msg);
-  chatMessages.scrollTop=chatMessages.scrollHeight;
+const msg=document.createElement("div");
+msg.className="message "+type;
+if(type==="bot"){msg.innerHTML="<span class='bot'>"+text+"</span>";}
+else{msg.textContent=text;}
+chatMessages.appendChild(msg);
+chatMessages.scrollTop=chatMessages.scrollHeight;
 }
 
 function respond(text){
-  let response="I'm here to help you explore community resources.";
-
-  if(text.includes("food"))response="Check the Food Pantry or Soup Kitchen in the Resources section.";
-  else if(text.includes("health"))response="Visit our Community Clinic or Mental Health Support Line.";
-  else if(text.includes("event"))response="See the Events section for upcoming activities.";
-  else if(text.includes("youth"))response="Youth programs include Coding Club and Homework Center.";
-  else if(text.includes("news"))response="Explore the News section for community updates.";
-  else if(text.includes("submit"))response="You can submit new resources in the Submit section.";
-  else if(text.includes("hi")||text.includes("hello"))response="Hello! How can I assist you today?";
-
-  addMessage(response,"bot");
+let response="I'm here to help you explore community resources.";
+if(text.includes("food"))response="Check the Food Pantry or Soup Kitchen in the Resources section.";
+else if(text.includes("health"))response="Visit our Community Clinic or Mental Health Support Line.";
+else if(text.includes("event"))response="See the Events section for upcoming activities.";
+else if(text.includes("youth"))response="Youth programs include Coding Club and Homework Center.";
+else if(text.includes("news"))response="Explore the News section for updates.";
+else if(text.includes("submit"))response="You can submit new resources in the Submit section.";
+else if(text.includes("hi")||text.includes("hello"))response="Hello! How can I assist you today?";
+addMessage(response,"bot");
 }
 </script>
 
