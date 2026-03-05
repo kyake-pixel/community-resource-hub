@@ -2,399 +2,361 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Community Resource Hub</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-
-html,body{
-  width:100%;
-  overflow-x:hidden;
-  background:#f9fafb;
-}
-
-:root{
-  --primary:#8ecae6;
-  --secondary:#f4a7b9;
-  --accent:#cdb4db;
-  --gold:#e9c46a;
-  --bg:#f9fafb;
-  --text:#222;
-  --card:#ffffff;
-}
 
 body{
-  font-family:'Inter',sans-serif;
-  color:var(--text);
-  line-height:1.6;
+margin:0;
+font-family: "Segoe UI", sans-serif;
+background:#0b0f2a;
+color:white;
+overflow-x:hidden;
 }
 
-h1,h2,h3{
-  font-family:'Playfair Display',serif;
+/* TOP COLOR CHANGING LINES */
+
+.header-lines{
+position:absolute;
+top:0;
+width:100%;
+height:120px;
+overflow:hidden;
 }
+
+.line{
+position:absolute;
+width:200%;
+height:3px;
+background:linear-gradient(90deg,#7a5cff,#00bfff);
+animation:moveLines 6s linear infinite, colorShift 8s ease-in-out infinite;
+}
+
+.line:nth-child(1){top:20px;}
+.line:nth-child(2){top:50px;}
+.line:nth-child(3){top:80px;}
+
+@keyframes moveLines{
+0%{transform:translateX(-50%);}
+100%{transform:translateX(0%);}
+}
+
+@keyframes colorShift{
+0%{filter:hue-rotate(0deg);}
+100%{filter:hue-rotate(180deg);}
+}
+
+/* BUBBLES */
+
+.bubble{
+position:fixed;
+bottom:-50px;
+border-radius:50%;
+background:rgba(120,120,255,0.15);
+animation:rise 20s infinite;
+}
+
+@keyframes rise{
+0%{transform:translateY(0);opacity:0}
+50%{opacity:1}
+100%{transform:translateY(-120vh);opacity:0}
+}
+
+/* HEADER */
+
+header{
+text-align:center;
+padding:100px 20px 40px 20px;
+font-size:48px;
+font-weight:600;
+}
+
+/* NAV */
 
 nav{
-  position:sticky;
-  top:0;
-  background:rgba(255,255,255,.9);
-  backdrop-filter:blur(12px);
-  padding:18px;
-  text-align:center;
-  z-index:1000;
+display:flex;
+justify-content:center;
+gap:25px;
+padding:15px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
 }
 
 nav a{
-  margin:0 15px;
-  text-decoration:none;
-  font-weight:600;
-  color:var(--text);
+color:white;
+text-decoration:none;
+font-size:18px;
 }
 
-header{
-  padding:160px 20px;
-  text-align:center;
-  background:linear-gradient(120deg,var(--primary),var(--accent));
-  color:white;
-  position:relative;
-}
-
-header::after{
-  content:"";
-  position:absolute;
-  bottom:0;
-  left:0;
-  width:100%;
-  height:120px;
-  background:linear-gradient(to bottom, rgba(0,0,0,0), #f9fafb);
-}
+/* SECTIONS */
 
 section{
-  max-width:1200px;
-  margin:auto;
-  padding:100px 20px;
+padding:50px;
+max-width:1100px;
+margin:auto;
 }
 
-/* SECTION HEADERS */
-.section-header{
-  margin-bottom:50px;
-  text-align:center;
+h2{
+font-size:32px;
+margin-bottom:20px;
 }
 
-.section-header h2{
-  font-size:38px;
-  margin-bottom:10px;
-}
-
-.section-header p{
-  color:#666;
-  font-size:16px;
-}
-
-.divider{
-  width:80px;
-  height:4px;
-  background:var(--accent);
-  margin:15px auto 25px;
-  border-radius:5px;
-}
+/* CARDS */
 
 .grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:30px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
 }
 
 .card{
-  background:var(--card);
-  padding:35px;
-  border-radius:24px;
-  box-shadow:0 15px 40px rgba(0,0,0,.08);
-  transition:.3s ease;
+background:rgba(255,255,255,0.08);
+border-radius:15px;
+padding:20px;
+transition:.3s;
+box-shadow:0 0 20px rgba(120,80,255,0.3);
 }
 
 .card:hover{
-  transform:translateY(-8px);
-  box-shadow:0 25px 60px rgba(0,0,0,.15);
-}
-
-.badge{
-  display:inline-block;
-  padding:6px 14px;
-  border-radius:20px;
-  font-size:12px;
-  margin-bottom:12px;
-  background:var(--secondary);
-  color:white;
-}
-
-.highlight-banner{
-  background:linear-gradient(120deg,var(--gold),var(--secondary));
-  padding:55px;
-  border-radius:30px;
-  text-align:center;
-  color:white;
-  margin-bottom:60px;
-}
-
-.news-card{
-  border-left:6px solid var(--accent);
-}
-
-input, select, textarea{
-  width:100%;
-  padding:12px;
-  border-radius:12px;
-  border:1px solid #ddd;
-  margin-bottom:15px;
-  font-family:'Inter',sans-serif;
-}
-
-button{
-  padding:12px 25px;
-  border-radius:20px;
-  border:none;
-  background:var(--primary);
-  color:white;
-  font-weight:600;
-  cursor:pointer;
-}
-
-button:hover{opacity:.85;}
-
-footer{
-  background:var(--accent);
-  color:white;
-  text-align:center;
-  padding:60px 20px;
+transform:translateY(-8px);
+box-shadow:0 0 30px rgba(120,80,255,0.6);
 }
 
 /* CHATBOT */
-#chatToggle{
-  position:fixed;
-  bottom:25px;
-  right:25px;
-  background:var(--primary);
-  color:white;
-  width:60px;
-  height:60px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:26px;
-  cursor:pointer;
-  box-shadow:0 10px 30px rgba(0,0,0,.2);
-  z-index:2000;
+
+.chatbot{
+position:fixed;
+bottom:20px;
+right:20px;
+width:260px;
+background:#12163c;
+border-radius:10px;
+padding:15px;
+box-shadow:0 0 20px rgba(0,0,0,.4);
 }
 
-#chatBot{
-  position:fixed;
-  bottom:100px;
-  right:25px;
-  width:320px;
-  max-height:450px;
-  background:white;
-  border-radius:20px;
-  box-shadow:0 20px 60px rgba(0,0,0,.25);
-  display:none;
-  flex-direction:column;
-  overflow:hidden;
-  z-index:2000;
+.chatbot input{
+width:100%;
+padding:8px;
+margin-top:10px;
 }
 
-#chatHeader{
-  background:linear-gradient(120deg,var(--primary),var(--accent));
-  color:white;
-  padding:15px;
-  font-weight:600;
-  text-align:center;
+/* CURSOR TRAIL */
+
+.trail{
+position:fixed;
+width:10px;
+height:10px;
+border-radius:50%;
+pointer-events:none;
+background:linear-gradient(45deg,blue,purple);
+opacity:.7;
 }
 
-#chatMessages{
-  flex:1;
-  padding:15px;
-  overflow-y:auto;
-  font-size:14px;
+iframe{
+width:100%;
+height:300px;
+border:none;
+border-radius:15px;
 }
 
-.message{margin-bottom:12px;}
-.user{text-align:right;font-weight:600;}
-.bot{
-  background:#f1f1f1;
-  padding:8px 12px;
-  border-radius:12px;
-  display:inline-block;
-}
-
-#chatInputArea{
-  display:flex;
-  border-top:1px solid #ddd;
-}
-
-#chatInputArea input{
-  flex:1;
-  border:none;
-  padding:12px;
-}
-
-#chatInputArea button{
-  border:none;
-  padding:12px 18px;
-  background:var(--secondary);
-  color:white;
-  cursor:pointer;
-}
 </style>
 </head>
 
 <body>
 
+<div class="header-lines">
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"></div>
+</div>
+
+<header>Community Resource Hub</header>
+
 <nav>
 <a href="#highlights">Highlights</a>
-<a href="#resources">Resources</a>
 <a href="#events">Events</a>
+<a href="#restaurants">Restaurants</a>
+<a href="#parks">Parks</a>
+<a href="#cars">Cars</a>
+<a href="#housing">Housing</a>
 <a href="#news">News</a>
-<a href="#submit">Submit</a>
+<a href="#map">Map</a>
 </nav>
 
-<header>
-<h1>Community Resource Hub</h1>
-<p>Connecting residents to essential services, programs, events, and community updates.</p>
-</header>
-
 <section id="highlights">
-<div class="section-header">
 <h2>Community Highlights</h2>
-<div class="divider"></div>
-<p>Spotlighting key programs and initiatives.</p>
-</div>
-
-<div class="highlight-banner">
-<h3>🌟 Community Wellness Fair</h3>
-<p>Free health screenings, youth activities, and food distribution this Saturday.</p>
-</div>
-</section>
-
-<section id="resources">
-<div class="section-header">
-<h2>Food & Essential Resources</h2>
-<div class="divider"></div>
-<p>Supporting access to meals, groceries, and basic needs.</p>
-</div>
-
 <div class="grid">
-<div class="card"><span class="badge">Food</span><h3>Community Food Pantry</h3><p>Weekly grocery assistance.</p></div>
-<div class="card"><span class="badge">Health</span><h3>Mental Health Support Line</h3><p>24/7 confidential assistance.</p></div>
-<div class="card"><span class="badge">Youth</span><h3>Youth Coding Club</h3><p>After-school STEM enrichment.</p></div>
+
+<div class="card">
+<h3>Farmers Market</h3>
+<p>Local vendors and fresh food every Saturday morning.</p>
+</div>
+
+<div class="card">
+<h3>Community Park Festival</h3>
+<p>Live music, games, and food trucks this weekend.</p>
+</div>
+
+<div class="card">
+<h3>New Coffee Shop</h3>
+<p>Aesthetic cafe downtown with amazing pastries.</p>
+</div>
+
+<div class="card">
+<h3>Art Walk</h3>
+<p>Explore local artists and galleries across town.</p>
+</div>
+
 </div>
 </section>
 
 <section id="events">
-<div class="section-header">
-<h2>Community Events</h2>
-<div class="divider"></div>
-<p>Programs and gatherings that strengthen community engagement.</p>
+<h2>Upcoming Events</h2>
+<div class="grid">
+
+<div class="card">
+<h3>Concert in the Park</h3>
+<p>Friday night live music.</p>
 </div>
 
+<div class="card">
+<h3>Charity Run</h3>
+<p>5k race supporting local shelters.</p>
+</div>
+
+</div>
+</section>
+
+<section id="restaurants">
+<h2>Restaurants</h2>
 <div class="grid">
-<div class="card"><h3>Neighborhood Clean-Up</h3><p>Saturday 10 AM.</p></div>
-<div class="card"><h3>Tech Workshop</h3><p>Thursday 6 PM.</p></div>
+
+<div class="card">
+<h3>La Bella Bistro</h3>
+<p>Italian dining experience.</p>
+</div>
+
+<div class="card">
+<h3>Sushi Garden</h3>
+<p>Fresh sushi and ramen.</p>
+</div>
+
+</div>
+</section>
+
+<section id="parks">
+<h2>Parks</h2>
+<div class="grid">
+
+<div class="card">
+<h3>Riverside Park</h3>
+<p>Walking trails and playground.</p>
+</div>
+
+<div class="card">
+<h3>Sunset Lake</h3>
+<p>Fishing, kayaking, and picnics.</p>
+</div>
+
+</div>
+</section>
+
+<section id="cars">
+<h2>Cars</h2>
+<div class="grid">
+
+<div class="card">
+<h3>2019 Toyota Camry</h3>
+<p>$18,500 • Great condition</p>
+</div>
+
+<div class="card">
+<h3>Ford F150</h3>
+<p>$24,000 • Low miles</p>
+</div>
+
+</div>
+</section>
+
+<section id="housing">
+<h2>Housing</h2>
+<div class="grid">
+
+<div class="card">
+<h3>Downtown Apartment</h3>
+<p>2 bed 1 bath • $900/month</p>
+</div>
+
+<div class="card">
+<h3>Family Home</h3>
+<p>3 bed 2 bath • $1,450/month</p>
+</div>
+
 </div>
 </section>
 
 <section id="news">
-<div class="section-header">
-<h2>Community News & Updates</h2>
-<div class="divider"></div>
-<p>Recent announcements and developments.</p>
-</div>
-
+<h2>Community News</h2>
 <div class="grid">
-<div class="card news-card"><h3>New Community Garden Opens</h3><p>Fresh produce now available.</p></div>
-<div class="card news-card"><h3>Library Expands STEM Programs</h3><p>New youth tech classes added.</p></div>
-</div>
-</section>
 
-<section id="submit">
-<div class="section-header">
-<h2>Contribute to the Hub</h2>
-<div class="divider"></div>
-<p>Help expand this resource by submitting new listings or events.</p>
+<div class="card">
+<h3>New Park Opening</h3>
+<p>The city will open a new recreation park next spring.</p>
 </div>
 
 <div class="card">
-<form>
-<input placeholder="Name" required>
-<select required>
-<option>Category</option>
-<option>Food</option>
-<option>Health</option>
-<option>Youth</option>
-<option>Event</option>
-</select>
-<textarea placeholder="Description" required></textarea>
-<button type="submit">Submit</button>
-</form>
+<h3>Downtown Renovations</h3>
+<p>Main street upgrades starting this month.</p>
+</div>
+
 </div>
 </section>
 
-<footer>
-<p>Empowering our community through connection.</p>
-</footer>
+<section id="map">
+<h2>Community Map</h2>
 
-<!-- CHATBOT -->
-<div id="chatToggle">💬</div>
+<iframe
+src="https://maps.google.com/maps?q=oklahoma&t=&z=10&ie=UTF8&iwloc=&output=embed">
+</iframe>
 
-<div id="chatBot">
-<div id="chatHeader">Community Assistant</div>
-<div id="chatMessages"></div>
-<div id="chatInputArea">
-<input type="text" id="userInput" placeholder="Ask about resources...">
-<button onclick="sendMessage()">Send</button>
+</section>
+
+<div class="chatbot">
+<b>Community AI</b>
+<p>Ask about events or places!</p>
+<input placeholder="Type a question...">
 </div>
-</div>
+
+<audio autoplay loop>
+<source src="piano.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-const toggle=document.getElementById("chatToggle");
-const chatBot=document.getElementById("chatBot");
-const chatMessages=document.getElementById("chatMessages");
 
-toggle.onclick=()=>{
-chatBot.style.display=chatBot.style.display==="flex"?"none":"flex";
-};
+/* BUBBLES */
 
-function sendMessage(){
-const input=document.getElementById("userInput");
-const text=input.value.toLowerCase().trim();
-if(!text)return;
-addMessage(text,"user");
-input.value="";
-setTimeout(()=>respond(text),500);
+for(let i=0;i<25;i++){
+let bubble=document.createElement("div");
+bubble.className="bubble";
+bubble.style.left=Math.random()*100+"vw";
+bubble.style.width=bubble.style.height=(20+Math.random()*40)+"px";
+bubble.style.animationDuration=(10+Math.random()*20)+"s";
+document.body.appendChild(bubble);
 }
 
-function addMessage(text,type){
-const msg=document.createElement("div");
-msg.className="message "+type;
-if(type==="bot"){msg.innerHTML="<span class='bot'>"+text+"</span>";}
-else{msg.textContent=text;}
-chatMessages.appendChild(msg);
-chatMessages.scrollTop=chatMessages.scrollHeight;
-}
+/* CURSOR TRAIL */
 
-function respond(text){
-let response="I'm here to help you explore community resources.";
-if(text.includes("food"))response="Check the Food Pantry or Soup Kitchen in the Resources section.";
-else if(text.includes("health"))response="Visit our Community Clinic or Mental Health Support Line.";
-else if(text.includes("event"))response="See the Events section for upcoming activities.";
-else if(text.includes("youth"))response="Youth programs include Coding Club and Homework Center.";
-else if(text.includes("news"))response="Explore the News section for updates.";
-else if(text.includes("submit"))response="You can submit new resources in the Submit section.";
-else if(text.includes("hi")||text.includes("hello"))response="Hello! How can I assist you today?";
-addMessage(response,"bot");
-}
+document.addEventListener("mousemove",e=>{
+let t=document.createElement("div");
+t.className="trail";
+t.style.left=e.pageX+"px";
+t.style.top=e.pageY+"px";
+document.body.appendChild(t);
+
+setTimeout(()=>t.remove(),600);
+});
+
 </script>
 
 </body>
