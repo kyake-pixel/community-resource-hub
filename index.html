@@ -1,361 +1,569 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
 <head>
 <meta charset="UTF-8">
 <title>Community Resource Hub</title>
 
 <style>
 
+/* GLOBAL */
+
 body{
 margin:0;
-font-family: "Segoe UI", sans-serif;
-background:#0b0f2a;
-color:white;
-overflow-x:hidden;
+font-family:Segoe UI;
+background:linear-gradient(270deg,#ffd6f1,#e6f7ff,#f2e6ff,#fff0e6);
+background-size:600% 600%;
+animation:gradientMove 18s ease infinite;
+color:#444;
 }
 
-/* TOP COLOR CHANGING LINES */
+/* BACKGROUND ANIMATION */
 
-.header-lines{
-position:absolute;
-top:0;
-width:100%;
-height:120px;
-overflow:hidden;
+@keyframes gradientMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
 }
 
-.line{
-position:absolute;
-width:200%;
-height:3px;
-background:linear-gradient(90deg,#7a5cff,#00bfff);
-animation:moveLines 6s linear infinite, colorShift 8s ease-in-out infinite;
-}
+/* FLOATING GLOW BLOBS */
 
-.line:nth-child(1){top:20px;}
-.line:nth-child(2){top:50px;}
-.line:nth-child(3){top:80px;}
-
-@keyframes moveLines{
-0%{transform:translateX(-50%);}
-100%{transform:translateX(0%);}
-}
-
-@keyframes colorShift{
-0%{filter:hue-rotate(0deg);}
-100%{filter:hue-rotate(180deg);}
-}
-
-/* BUBBLES */
-
-.bubble{
+.blob{
 position:fixed;
-bottom:-50px;
 border-radius:50%;
-background:rgba(120,120,255,0.15);
-animation:rise 20s infinite;
+filter:blur(80px);
+opacity:.5;
+z-index:-1;
+animation:float 15s infinite alternate;
 }
 
-@keyframes rise{
-0%{transform:translateY(0);opacity:0}
-50%{opacity:1}
-100%{transform:translateY(-120vh);opacity:0}
+.blob1{width:300px;height:300px;background:#ffc6ff;top:10%;left:10%;}
+.blob2{width:350px;height:350px;background:#bde0fe;bottom:15%;right:15%;}
+.blob3{width:250px;height:250px;background:#cdb4db;top:60%;left:40%;}
+
+@keyframes float{
+from{transform:translateY(0)}
+to{transform:translateY(60px)}
 }
 
-/* HEADER */
-
-header{
-text-align:center;
-padding:100px 20px 40px 20px;
-font-size:48px;
-font-weight:600;
-}
-
-/* NAV */
+/* NAVBAR */
 
 nav{
 display:flex;
 justify-content:center;
 gap:25px;
-padding:15px;
-background:rgba(255,255,255,0.05);
-backdrop-filter:blur(10px);
+padding:18px;
+background:rgba(255,255,255,0.75);
+backdrop-filter:blur(12px);
+position:sticky;
+top:0;
+z-index:10;
 }
 
 nav a{
-color:white;
 text-decoration:none;
-font-size:18px;
+font-weight:600;
+color:#555;
 }
 
-/* SECTIONS */
+/* DATE TIME */
 
-section{
-padding:50px;
-max-width:1100px;
-margin:auto;
+.datetime{
+position:fixed;
+top:10px;
+right:20px;
+font-weight:bold;
+background:white;
+padding:8px 14px;
+border-radius:20px;
+box-shadow:0 5px 15px rgba(0,0,0,.15);
 }
 
-h2{
+/* HEADER */
+
+.header{
+text-align:center;
+padding:60px 20px;
+}
+
+.header h1{
+font-size:50px;
+background:linear-gradient(90deg,#ff8edb,#8ecbff,#caa0ff);
+-webkit-background-clip:text;
+color:transparent;
+}
+
+.section-title{
+text-align:center;
 font-size:32px;
-margin-bottom:20px;
+margin-top:40px;
+}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
+padding:40px;
 }
 
 /* CARDS */
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-}
-
 .card{
-background:rgba(255,255,255,0.08);
-border-radius:15px;
-padding:20px;
-transition:.3s;
-box-shadow:0 0 20px rgba(120,80,255,0.3);
+background:white;
+border-radius:18px;
+box-shadow:0 12px 25px rgba(0,0,0,.15);
+cursor:pointer;
+transition:.35s;
+overflow:hidden;
+position:relative;
 }
 
 .card:hover{
-transform:translateY(-8px);
-box-shadow:0 0 30px rgba(120,80,255,0.6);
+transform:translateY(-12px) scale(1.02);
+box-shadow:0 25px 50px rgba(0,0,0,.25);
 }
 
-/* CHATBOT */
+.card img{
+width:100%;
+height:170px;
+object-fit:cover;
+}
 
-.chatbot{
+.card-content{
+padding:15px;
+}
+
+.card h3{
+margin:0;
+}
+
+.tag{
+background:#f3e8ff;
+color:#7a5cff;
+padding:4px 10px;
+border-radius:15px;
+font-size:12px;
+display:inline-block;
+margin-top:6px;
+}
+
+/* MODAL */
+
+.modal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.5);
+align-items:center;
+justify-content:center;
+}
+
+.modal-box{
+background:white;
+padding:30px;
+border-radius:16px;
+width:420px;
+max-width:90%;
+}
+
+/* CHAT */
+
+.chat-btn{
 position:fixed;
 bottom:20px;
 right:20px;
-width:260px;
-background:#12163c;
-border-radius:10px;
-padding:15px;
-box-shadow:0 0 20px rgba(0,0,0,.4);
-}
-
-.chatbot input{
-width:100%;
-padding:8px;
-margin-top:10px;
-}
-
-/* CURSOR TRAIL */
-
-.trail{
-position:fixed;
-width:10px;
-height:10px;
-border-radius:50%;
-pointer-events:none;
-background:linear-gradient(45deg,blue,purple);
-opacity:.7;
-}
-
-iframe{
-width:100%;
-height:300px;
+background:#7aa7ff;
+color:white;
 border:none;
+padding:16px;
+border-radius:50%;
+cursor:pointer;
+}
+
+.chat{
+position:fixed;
+bottom:90px;
+right:20px;
+width:300px;
+height:340px;
+background:white;
 border-radius:15px;
+display:none;
+flex-direction:column;
+box-shadow:0 10px 30px rgba(0,0,0,.3);
+}
+
+.chat-messages{
+flex:1;
+padding:12px;
+overflow:auto;
+}
+
+.chat-input{
+display:flex;
+border-top:1px solid #ddd;
+}
+
+.chat-input input{
+flex:1;
+border:none;
+padding:10px;
+}
+
+.chat-input button{
+border:none;
+background:#7aa7ff;
+color:white;
+padding:10px;
+}
+
+/* MUSIC BUTTON */
+
+.music{
+position:fixed;
+bottom:20px;
+left:20px;
+background:#a88cff;
+color:white;
+border:none;
+padding:12px 18px;
+border-radius:20px;
+cursor:pointer;
+}
+
+/* SUBMISSION */
+
+.submit{
+max-width:600px;
+margin:auto;
+padding:40px;
+}
+
+.submit input,.submit textarea{
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:10px;
+border:1px solid #ccc;
+}
+
+.submit button{
+margin-top:15px;
+padding:12px;
+border:none;
+background:#7aa7ff;
+color:white;
+border-radius:10px;
+cursor:pointer;
+}
+
+/* FAQ */
+
+.faq{
+padding:40px;
+max-width:800px;
+margin:auto;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<div class="header-lines">
-<div class="line"></div>
-<div class="line"></div>
-<div class="line"></div>
-</div>
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
 
-<header>Community Resource Hub</header>
+<div class="datetime" id="datetime"></div>
+
+<audio id="music" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9a4cdd9d1c.mp3">
+</audio>
 
 <nav>
 <a href="#highlights">Highlights</a>
-<a href="#events">Events</a>
-<a href="#restaurants">Restaurants</a>
-<a href="#parks">Parks</a>
-<a href="#cars">Cars</a>
 <a href="#housing">Housing</a>
-<a href="#news">News</a>
-<a href="#map">Map</a>
+<a href="#restaurants">Restaurants</a>
+<a href="#shops">Shops</a>
+<a href="#events">Events</a>
+<a href="#submit">Submit</a>
+<a href="#faq">FAQ</a>
 </nav>
 
-<section id="highlights">
-<h2>Community Highlights</h2>
+<div class="header">
+<h1>Community Resource Hub</h1>
+<p>Connecting residents to housing, dining, shopping, and local events.</p>
+</div>
+
+<!-- COMMUNITY HIGHLIGHTS -->
+
+<h2 class="section-title" id="highlights">Community Highlights</h2>
+
 <div class="grid">
 
-<div class="card">
-<h3>Farmers Market</h3>
-<p>Local vendors and fresh food every Saturday morning.</p>
+<div class="card" onclick="openCard('park')">
+<img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb">
+<div class="card-content">
+<h3>Central Park</h3>
+<span class="tag">Recreation</span>
+</div>
 </div>
 
-<div class="card">
-<h3>Community Park Festival</h3>
-<p>Live music, games, and food trucks this weekend.</p>
+<div class="card" onclick="openCard('library')">
+<img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da">
+<div class="card-content">
+<h3>Community Library</h3>
+<span class="tag">Education</span>
+</div>
 </div>
 
-<div class="card">
-<h3>New Coffee Shop</h3>
-<p>Aesthetic cafe downtown with amazing pastries.</p>
+<div class="card" onclick="openCard('gallery')">
+<img src="https://images.unsplash.com/photo-1531058020387-3be344556be6">
+<div class="card-content">
+<h3>Local Art Gallery</h3>
+<span class="tag">Arts</span>
+</div>
 </div>
 
-<div class="card">
-<h3>Art Walk</h3>
-<p>Explore local artists and galleries across town.</p>
+<div class="card" onclick="openCard('garden')">
+<img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735">
+<div class="card-content">
+<h3>Community Garden</h3>
+<span class="tag">Volunteer</span>
+</div>
 </div>
 
 </div>
-</section>
 
-<section id="events">
-<h2>Upcoming Events</h2>
+<!-- RESTAURANTS -->
+
+<h2 class="section-title" id="restaurants">Restaurants</h2>
+
 <div class="grid">
 
-<div class="card">
-<h3>Concert in the Park</h3>
-<p>Friday night live music.</p>
+<div class="card" onclick="openCard('pizza')">
+<img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092">
+<div class="card-content">
+<h3>Mario's Pizza</h3>
+<span class="tag">Italian</span>
+</div>
 </div>
 
-<div class="card">
-<h3>Charity Run</h3>
-<p>5k race supporting local shelters.</p>
+<div class="card" onclick="openCard('sushi')">
+<img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c">
+<div class="card-content">
+<h3>Sakura Sushi</h3>
+<span class="tag">Japanese</span>
+</div>
 </div>
 
 </div>
-</section>
 
-<section id="restaurants">
-<h2>Restaurants</h2>
+<!-- SHOPS -->
+
+<h2 class="section-title" id="shops">Local Shops</h2>
+
 <div class="grid">
 
-<div class="card">
-<h3>La Bella Bistro</h3>
-<p>Italian dining experience.</p>
+<div class="card" onclick="openCard('bookstore')">
+<img src="https://images.unsplash.com/photo-1519681393784-d120267933ba">
+<div class="card-content">
+<h3>Corner Bookstore</h3>
+<span class="tag">Books</span>
+</div>
 </div>
 
-<div class="card">
-<h3>Sushi Garden</h3>
-<p>Fresh sushi and ramen.</p>
+<div class="card" onclick="openCard('bakery')">
+<img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec">
+<div class="card-content">
+<h3>Sweet Treats Bakery</h3>
+<span class="tag">Bakery</span>
+</div>
 </div>
 
 </div>
-</section>
 
-<section id="parks">
-<h2>Parks</h2>
+<!-- EVENTS -->
+
+<h2 class="section-title" id="events">Upcoming Events</h2>
+
 <div class="grid">
 
-<div class="card">
-<h3>Riverside Park</h3>
-<p>Walking trails and playground.</p>
+<div class="card" onclick="openCard('festival')">
+<img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4">
+<div class="card-content">
+<h3>Summer Festival</h3>
+<span class="tag">Community Event</span>
 </div>
-
-<div class="card">
-<h3>Sunset Lake</h3>
-<p>Fishing, kayaking, and picnics.</p>
-</div>
-
-</div>
-</section>
-
-<section id="cars">
-<h2>Cars</h2>
-<div class="grid">
-
-<div class="card">
-<h3>2019 Toyota Camry</h3>
-<p>$18,500 • Great condition</p>
-</div>
-
-<div class="card">
-<h3>Ford F150</h3>
-<p>$24,000 • Low miles</p>
 </div>
 
 </div>
-</section>
 
-<section id="housing">
-<h2>Housing</h2>
-<div class="grid">
+<!-- SUBMISSION -->
 
-<div class="card">
-<h3>Downtown Apartment</h3>
-<p>2 bed 1 bath • $900/month</p>
-</div>
+<div class="submit" id="submit">
 
-<div class="card">
-<h3>Family Home</h3>
-<p>3 bed 2 bath • $1,450/month</p>
-</div>
+<h2 class="section-title">Submit a Business or Event</h2>
+
+<input placeholder="Name of Business/Event">
+<input placeholder="Location">
+<input placeholder="Date or Hours">
+<textarea placeholder="Description"></textarea>
+
+<button>Submit Listing</button>
 
 </div>
-</section>
 
-<section id="news">
-<h2>Community News</h2>
-<div class="grid">
+<!-- FAQ -->
 
-<div class="card">
-<h3>New Park Opening</h3>
-<p>The city will open a new recreation park next spring.</p>
+<div class="faq" id="faq">
+
+<h2 class="section-title">Frequently Asked Questions</h2>
+
+<h3>What is this website?</h3>
+<p>A centralized hub connecting residents with housing, restaurants, shops, and local events.</p>
+
+<h3>How can businesses join?</h3>
+<p>Businesses can submit their information using the submission form above.</p>
+
+<h3>Is this service free?</h3>
+<p>Yes, the platform is free for community use.</p>
+
 </div>
 
-<div class="card">
-<h3>Downtown Renovations</h3>
-<p>Main street upgrades starting this month.</p>
+<!-- MODAL -->
+
+<div class="modal" id="modal">
+<div class="modal-box" id="modalContent"></div>
+</div>
+
+<button class="chat-btn" onclick="toggleChat()">💬</button>
+
+<div class="chat" id="chat">
+
+<div class="chat-messages" id="chatMessages"></div>
+
+<div class="chat-input">
+<input id="chatInput">
+<button onclick="sendChat()">Send</button>
 </div>
 
 </div>
-</section>
 
-<section id="map">
-<h2>Community Map</h2>
-
-<iframe
-src="https://maps.google.com/maps?q=oklahoma&t=&z=10&ie=UTF8&iwloc=&output=embed">
-</iframe>
-
-</section>
-
-<div class="chatbot">
-<b>Community AI</b>
-<p>Ask about events or places!</p>
-<input placeholder="Type a question...">
-</div>
-
-<audio autoplay loop>
-<source src="piano.mp3" type="audio/mpeg">
-</audio>
+<button class="music" onclick="toggleMusic()">🎵 Music</button>
 
 <script>
 
-/* BUBBLES */
+/* LIVE CLOCK */
 
-for(let i=0;i<25;i++){
-let bubble=document.createElement("div");
-bubble.className="bubble";
-bubble.style.left=Math.random()*100+"vw";
-bubble.style.width=bubble.style.height=(20+Math.random()*40)+"px";
-bubble.style.animationDuration=(10+Math.random()*20)+"s";
-document.body.appendChild(bubble);
+function updateTime(){
+let now=new Date()
+document.getElementById("datetime").innerText=now.toLocaleString()
+}
+setInterval(updateTime,1000)
+
+/* CARD DATA */
+
+const data={
+
+pizza:{
+title:"Mario's Pizza",
+info:"Menu Pricing:<br>Large Pizza $14<br>Pasta $11<br><br>Location: Main Street<br>Hours: 11AM-10PM"
+},
+
+sushi:{
+title:"Sakura Sushi",
+info:"Menu:<br>Rolls $8-$16<br>Ramen $12<br><br>Location: River Road<br>Hours: 12PM-9PM"
+},
+
+festival:{
+title:"Summer Festival",
+info:"Date: July 14<br>Time: 4PM-10PM<br>Location: Central Park<br>Live music, food trucks, and games."
+},
+
+bookstore:{
+title:"Corner Bookstore",
+info:"Independent bookstore featuring local authors and community reading events."
+},
+
+bakery:{
+title:"Sweet Treats Bakery",
+info:"Fresh pastries, cupcakes, and artisan breads baked daily."
+},
+
+park:{
+title:"Central Park",
+info:"Walking trails, playgrounds, outdoor concerts, and picnic areas."
+},
+
+library:{
+title:"Community Library",
+info:"Public computers, study rooms, children's programs, and free WiFi."
+},
+
+gallery:{
+title:"Local Art Gallery",
+info:"Rotating exhibitions featuring regional artists."
+},
+
+garden:{
+title:"Community Garden",
+info:"Volunteer garden plots and sustainability workshops."
 }
 
-/* CURSOR TRAIL */
+}
 
-document.addEventListener("mousemove",e=>{
-let t=document.createElement("div");
-t.className="trail";
-t.style.left=e.pageX+"px";
-t.style.top=e.pageY+"px";
-document.body.appendChild(t);
+/* OPEN CARD */
 
-setTimeout(()=>t.remove(),600);
-});
+function openCard(id){
+
+let d=data[id]
+
+document.getElementById("modal").style.display="flex"
+
+document.getElementById("modalContent").innerHTML=
+"<h2>"+d.title+"</h2><p>"+d.info+"</p><br><button onclick='closeCard()'>Close</button>"
+
+}
+
+function closeCard(){
+document.getElementById("modal").style.display="none"
+}
+
+/* CHAT */
+
+function toggleChat(){
+let chat=document.getElementById("chat")
+chat.style.display=chat.style.display==="flex"?"none":"flex"
+}
+
+function sendChat(){
+
+let input=document.getElementById("chatInput")
+let msg=input.value
+
+if(!msg)return
+
+let box=document.getElementById("chatMessages")
+
+box.innerHTML+="<div><b>You:</b> "+msg+"</div>"
+box.innerHTML+="<div><b>Hub AI:</b> Try exploring restaurants, housing, shops, or events.</div>"
+
+input.value=""
+}
+
+/* MUSIC */
+
+function toggleMusic(){
+let m=document.getElementById("music")
+if(m.paused){m.play()} else{m.pause()}
+}
 
 </script>
 
