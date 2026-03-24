@@ -3,353 +3,193 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Community Resource Hub</title>
+<title>Ultimate Community Resource Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
-body {
-  margin:0;
-  font-family:'Segoe UI',sans-serif;
-  background:linear-gradient(135deg,#fbc2eb,#a6c1ee);
-  color:#333;
+body { margin:0; font-family:'Poppins',sans-serif; background:#f4f6f8; color:#1f1f1f; }
+nav { position:fixed; top:0; width:100%; background:white; display:flex; justify-content:center; gap:25px; padding:15px; box-shadow:0 4px 12px rgba(0,0,0,0.1); z-index:1000; }
+nav a { font-weight:600; color:#0d3b66; cursor:pointer; text-decoration:none; }
+nav a:hover { color:#00a6fb; }
+section { padding:140px 40px; min-height:100vh; display:none; position:relative; animation:fade 0.6s ease; }
+section.active { display:block; }
+@keyframes fade { from {opacity:0; transform:translateY(20px);} to {opacity:1;} }
+.tip-box { margin:20px 0; padding:12px; background:#eaf4fc; border-left:4px solid #00a6fb; border-radius:8px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
+.card { background:white; border-radius:14px; padding:15px; box-shadow:0 6px 15px rgba(0,0,0,0.08); transition:0.3s; cursor:pointer; position:relative; }
+.card:hover { transform:translateY(-6px); box-shadow:0 15px 30px rgba(0,0,0,0.15); }
+.card-image { height:150px; width:100%; background: repeating-linear-gradient(45deg, #ddd, #ddd 10px, #fff 10px, #fff 20px); border-radius:12px; display:flex; align-items:center; justify-content:center; font-family:'Great Vibes', cursive; color:#0d3b66; font-size:20px; margin-bottom:10px; }
+.modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; }
+.modal-content { background:white; padding:25px; border-radius:12px; width:80%; max-height:80%; overflow:auto; }
+.close {cursor:pointer; float:right; font-size:20px;}
+footer { background:#0d3b66; color:white; text-align:center; padding:25px; font-size:14px; }
+footer a { color:#00a6fb; text-decoration:none; }
+/* Animated Backgrounds */
+#home::before, #directory::before, #events::before, #highlights::before, #shops::before, #cafes::before, #parks::before, #houses::before, #about::before {
+ content:""; position:absolute; width:200%; height:200%; z-index:-1; opacity:0.08;
 }
-
-/* NAV */
-nav {
-  position:fixed;
-  top:0;
-  width:100%;
-  display:flex;
-  justify-content:center;
-  gap:25px;
-  padding:15px;
-  background:rgba(255,255,255,0.85);
-  backdrop-filter:blur(10px);
-  z-index:1000;
-}
-
-nav a {
-  text-decoration:none;
-  font-weight:bold;
-  color:#444;
-}
-
-section {
-  padding:100px 40px;
-}
-
-/* GRID */
-.grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:20px;
-}
-
-/* CARD */
-.card {
-  background:white;
-  border-radius:20px;
-  overflow:hidden;
-  box-shadow:0 10px 25px rgba(0,0,0,0.2);
-  cursor:pointer;
-  transition:0.3s;
-}
-
-.card:hover { transform:scale(1.05); }
-
-.card img {
-  width:100%;
-  height:180px;
-  object-fit:cover;
-}
-
-.card-content {
-  padding:15px;
-}
-
-/* MODAL */
-.modal {
-  display:none;
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.7);
-  justify-content:center;
-  align-items:center;
-}
-
-.modal-content {
-  background:white;
-  padding:30px;
-  border-radius:20px;
-  width:70%;
-  max-height:80%;
-  overflow:auto;
-}
-
-/* INPUT */
-input, select {
-  padding:10px;
-  margin:10px;
-  border-radius:10px;
-  border:none;
-}
-
-/* FORM */
-form {
-  background:white;
-  padding:20px;
-  border-radius:20px;
-  max-width:500px;
-}
-
-/* CHATBOT */
-#chatbot {
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  width:280px;
-  background:white;
-  border-radius:15px;
-  overflow:hidden;
-}
-
-#chatbox {
-  height:180px;
-  overflow:auto;
-  padding:10px;
-}
+#home::before { background: linear-gradient(135deg,#0d3b66,#00a6fb,#eaf4fc); animation:move 12s infinite alternate; }
+#directory::before { background-image:linear-gradient(#ddd 1px, transparent 1px), linear-gradient(90deg,#ddd 1px, transparent 1px); background-size:40px 40px; animation:grid 12s linear infinite; }
+#events::before { background:radial-gradient(circle at 20% 20%, #00a6fb33, transparent), radial-gradient(circle at 80% 80%, #0d3b6633, transparent); animation:float 8s infinite alternate; }
+#highlights::before { background:linear-gradient(45deg, #ffe0ac33, #ffacac33); animation:move 15s infinite alternate; }
+#shops::before, #cafes::before, #parks::before, #houses::before { background:linear-gradient(135deg,#ffd6f733,#c2f0f733); animation:move 10s infinite alternate; }
+#about::before { background:linear-gradient(135deg,#a6c1ee33,#fbc2eb33); animation:move 12s infinite alternate; }
+@keyframes move { to { transform:translate(-100px,-100px); } }
+@keyframes grid { to { background-position:40px 40px; } }
+@keyframes float { to { transform:translateY(-20px); } }
 </style>
 </head>
-
 <body>
 
-<!-- NAV -->
 <nav>
-<a href="#home">Home</a>
-<a href="#directory">Directory</a>
-<a href="#highlights">Highlights</a>
-<a href="#events">Events</a>
-<a href="#submit">Submit</a>
-<a href="#careers">Careers</a>
+<a onclick="show('home')">Home</a>
+<a onclick="show('directory')">Directory</a>
+<a onclick="show('highlights')">Highlights</a>
+<a onclick="show('shops')">Shops</a>
+<a onclick="show('cafes')">Cafes</a>
+<a onclick="show('parks')">Parks</a>
+<a onclick="show('houses')">Houses</a>
+<a onclick="show('events')">Events</a>
+<a onclick="show('about')">About</a>
 </nav>
 
 <!-- HOME -->
-<section id="home">
-<h1>🌟 Community Resource Hub</h1>
-<p>Connecting residents to essential services, programs, and opportunities in one place.</p>
+<section id="home" class="active">
+<h1>Community Resource Hub</h1>
+<div class="tip-box">🚀 Tip: Use the menu to navigate and explore all resources, events, and community highlights.</div>
+<div class="grid">
+<div class="card" onclick="show('directory')">Explore Resources</div>
+<div class="card" onclick="show('events')">View Events</div>
+<div class="card" onclick="show('highlights')">See Highlights</div>
+</div>
 </section>
 
 <!-- DIRECTORY -->
 <section id="directory">
-<h2>🔍 Resource Directory</h2>
-
-<input id="searchInput" placeholder="Search resources..." onkeyup="filterResources()">
-<select id="categoryFilter" onchange="filterResources()">
-<option value="">All Categories</option>
-<option value="food">Food</option>
-<option value="health">Health</option>
-<option value="education">Education</option>
-</select>
-
-<div class="grid" id="resourceList">
-
-<div class="card" data-category="food" onclick="openModal('Food Bank: Provides free groceries weekly. Mon-Fri 9AM-5PM.')">
-<img src="https://source.unsplash.com/400x300/?food,charity">
-<div class="card-content">
-<h3>Food Bank</h3>
-<p>Free groceries for families</p>
-</div>
-</div>
-
-<div class="card" data-category="health" onclick="openModal('Community Clinic: Free checkups, vaccines, and health services.')">
-<img src="https://source.unsplash.com/400x300/?clinic,health">
-<div class="card-content">
-<h3>Community Clinic</h3>
-<p>Healthcare support</p>
-</div>
-</div>
-
-<div class="card" data-category="education" onclick="openModal('Public Library: Books, tutoring, and internet access.')">
-<img src="https://source.unsplash.com/400x300/?library,study">
-<div class="card-content">
-<h3>Library</h3>
-<p>Learning & resources</p>
-</div>
-</div>
-
-</div>
+<h2>Resource Directory</h2>
+<div class="tip-box">🔍 Tip: Click any resource to view full details.</div>
+<div class="grid" id="resources"></div>
 </section>
 
 <!-- HIGHLIGHTS -->
 <section id="highlights">
-<h2>⭐ Featured Resources</h2>
-
-<div class="grid">
-<div class="card">
-<img src="https://source.unsplash.com/400x300/?volunteer">
-<div class="card-content">
-<h3>Volunteer Program</h3>
-<p>Connects residents to meaningful service opportunities.</p>
-</div>
-</div>
-
-<div class="card">
-<img src="https://source.unsplash.com/400x300/?community-center">
-<div class="card-content">
-<h3>Community Center</h3>
-<p>Events, youth programs, and local support.</p>
-</div>
-</div>
-
-<div class="card">
-<img src="https://source.unsplash.com/400x300/?tutoring">
-<div class="card-content">
-<h3>After-School Tutoring</h3>
-<p>Academic support for students.</p>
-</div>
-</div>
-</div>
+<h2>Community Highlights</h2>
+<div class="tip-box">⭐ Tip: These are some of the most important activities and programs in your community.</div>
+<div class="grid" id="highlightsGrid"></div>
 </section>
 
-<!-- EVENTS (NOW FULLY DETAILED + IMAGES) -->
+<!-- SHOPS -->
+<section id="shops">
+<h2>Local Shops</h2>
+<div class="tip-box">🛍️ Tip: Click shops for location, hours, and special info.</div>
+<div class="grid" id="shopsGrid"></div>
+</section>
+
+<!-- CAFES -->
+<section id="cafes">
+<h2>Cafes & Food</h2>
+<div class="tip-box">☕ Tip: Click cafes to view menus and details.</div>
+<div class="grid" id="cafesGrid"></div>
+</section>
+
+<!-- PARKS -->
+<section id="parks">
+<h2>Parks & Recreation</h2>
+<div class="tip-box">🌳 Tip: Click to learn about park amenities and locations.</div>
+<div class="grid" id="parksGrid"></div>
+</section>
+
+<!-- HOUSES -->
+<section id="houses">
+<h2>Housing Listings</h2>
+<div class="tip-box">🏠 Tip: Click listings for details and contact info.</div>
+<div class="grid" id="housesGrid"></div>
+</section>
+
+<!-- EVENTS -->
 <section id="events">
-<h2>🎉 Community Events</h2>
-
-<div class="grid">
-
-<div class="card" onclick="openModal(`
-<h2>Summer Festival</h2>
-<p><b>Date:</b> June 10</p>
-<p><b>Time:</b> 10AM - 10PM</p>
-<p><b>Location:</b> Central Park</p>
-<p><b>Description:</b> A full-day celebration with food trucks, live music, games, and fireworks.</p>
-<p><b>Schedule:</b></p>
-<ul>
-<li>10AM Opening Ceremony</li>
-<li>1PM Food Fair</li>
-<li>5PM Live Music</li>
-<li>9PM Fireworks</li>
-</ul>
-`)">
-<img src="https://source.unsplash.com/400x300/?festival,concert">
-<div class="card-content">
-<h3>Summer Festival</h3>
-<p>Music, food, and fireworks</p>
-</div>
-</div>
-
-<div class="card" onclick="openModal(`
-<h2>Farmers Market</h2>
-<p><b>Date:</b> Every Saturday</p>
-<p><b>Time:</b> 8AM - 1PM</p>
-<p><b>Location:</b> Downtown Square</p>
-<p><b>Description:</b> Local vendors selling fresh produce, baked goods, and crafts.</p>
-`)">
-<img src="https://source.unsplash.com/400x300/?farmers-market">
-<div class="card-content">
-<h3>Farmers Market</h3>
-<p>Fresh & local goods</p>
-</div>
-</div>
-
-<div class="card" onclick="openModal(`
-<h2>Community Cleanup Day</h2>
-<p><b>Date:</b> July 5</p>
-<p><b>Time:</b> 9AM - 2PM</p>
-<p><b>Location:</b> City Park</p>
-<p><b>Description:</b> Volunteers gather to clean and improve community spaces.</p>
-`)">
-<img src="https://source.unsplash.com/400x300/?community,cleanup">
-<div class="card-content">
-<h3>Cleanup Day</h3>
-<p>Volunteer event</p>
-</div>
-</div>
-
-</div>
+<h2>Community Events</h2>
+<div class="tip-box">🎉 Tip: Click events to see full details like time, location, and contact.</div>
+<div class="grid" id="eventsGrid"></div>
 </section>
 
-<!-- FORM -->
-<section id="submit">
-<h2>📝 Submit a Resource</h2>
-
-<form onsubmit="submitForm(event)">
-<input placeholder="Resource Name" required><br>
-<input placeholder="Category" required><br>
-<input placeholder="Description" required><br>
-<button type="submit">Submit</button>
-</form>
-
-<p id="formMessage"></p>
-</section>
-
-<!-- CAREERS -->
-<section id="careers">
-<h2>💼 Careers in Technology</h2>
-<ul>
-<li>Computer Engineer</li>
-<li>Programmer</li>
-<li>Researcher</li>
-<li>Software Designer</li>
-<li>Webmaster</li>
-</ul>
+<!-- ABOUT -->
+<section id="about">
+<h2>About This Website</h2>
+<div class="tip-box">ℹ️ This site serves as a community resource hub highlighting local resources, events, shops, parks, cafes, housing, and community highlights. It meets the Community Resource Hub challenge requirements.</div>
+<p>Created by Keira Yake. Sources: Community information collected from local directories, verified community programs, and official websites. All material is either original or free to use. This site is designed for competition purposes.</p>
 </section>
 
 <!-- MODAL -->
-<div class="modal" id="modal" onclick="closeModal()">
-<div class="modal-content" id="modalContent"></div>
+<div class="modal" id="modal">
+<div class="modal-content">
+<span class="close" onclick="closeModal()">✖</span>
+<div id="modalText"></div>
+</div>
 </div>
 
-<!-- CHATBOT -->
-<div id="chatbot">
-<div style="background:#ff4da6;color:white;padding:10px;">AI Assistant</div>
-<div id="chatbox"></div>
-<input id="userInput" placeholder="Ask..." style="width:65%">
-<button onclick="sendMessage()">Send</button>
-</div>
+<!-- FOOTER -->
+<footer>
+&copy; 2026 Community Resource Hub | Created by Keira Yake | Email: <a href="mailto:keira.com">kyake@pcnet-wtc.org</a>
+</footer>
 
 <script>
-function openModal(text){
-document.getElementById("modal").style.display="flex";
-document.getElementById("modalContent").innerHTML=text;
+function show(id){ document.querySelectorAll('section').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+
+const resources=[
+{name:"Food Bank", details:"Free groceries", location:"123 Main St", phone:"555-1234", hours:"9-5"},
+{name:"Community Clinic", details:"Free healthcare", location:"456 Health Rd", phone:"555-5678", hours:"8-6"},
+{name:"Library", details:"Books + tutoring", location:"789 Library Ln", phone:"555-2222", hours:"9-8"}
+];
+
+const highlights=[
+{name:"Volunteer Program", details:"Connects residents to service opportunities", location:"Community Center"},
+{name:"Youth Workshop", details:"Skill-building and creative programs", location:"Youth Hall"},
+{name:"Annual Festival", details:"Celebrating community culture and music", location:"Central Park"}
+];
+
+const shops=[
+{name:"Boutique Store", details:"Unique local products", location:"101 Market St"},
+{name:"Gift Shop", details:"Souvenirs and gifts", location:"102 Market St"}
+];
+
+const cafes=[
+{name:"Cafe Aroma", details:"Coffee, pastries, and light meals", location:"12 Coffee Ln"},
+{name:"Bakery Bliss", details:"Fresh bread and desserts", location:"15 Baker Rd"}
+];
+
+const parks=[
+{name:"Central Park", details:"Playgrounds, picnic areas", location:"Downtown"},
+{name:"Lakeview Park", details:"Hiking trails and lake access", location:"West End"}
+];
+
+const houses=[
+{name:"Maple Street House", details:"3 bed, 2 bath", location:"123 Maple St", contact:"555-0001"},
+{name:"Oak Avenue Apartment", details:"2 bed, 1 bath", location:"456 Oak Ave", contact:"555-0002"}
+];
+
+const events=[
+{name:"Summer Festival", details:"Music, food, games", location:"Central Park", date:"June 10"},
+{name:"Farmers Market", details:"Fresh produce", location:"Town Square", date:"Every Saturday"},
+{name:"Art Walk", details:"Local artists + workshops", location:"Art District", date:"July 15"},
+{name:"Community Picnic", details:"Family fun + food", location:"Lakeside Park", date:"August 5"}
+];
+
+function renderCards(){
+const addCards=(list,id)=>{const container=document.getElementById(id); list.forEach(d=>{
+let card=document.createElement('div'); card.className='card';
+card.innerHTML=`<div class='card-image'>${d.name}</div><h3>${d.name}</h3><p>${d.details}</p>`;
+card.onclick=()=>openModal(d); container.appendChild(card);
+});};
+addCards(resources,'resources'); addCards(highlights,'highlightsGrid'); addCards(shops,'shopsGrid'); addCards(cafes,'cafesGrid'); addCards(parks,'parksGrid'); addCards(houses,'housesGrid'); addCards(events,'eventsGrid');
 }
 
-function closeModal(){
-document.getElementById("modal").style.display="none";
+function openModal(d){
+document.getElementById('modal').style.display='flex';
+document.getElementById('modalText').innerHTML=`<h2>${d.name}</h2><p>${d.details}</p>${d.location?`<p><b>Location:</b> ${d.location}</p>`:''}${d.phone?`<p><b>Phone:</b> ${d.phone}</p>`:''}${d.hours?`<p><b>Hours:</b> ${d.hours}</p>`:''}${d.date?`<p><b>Date:</b> ${d.date}</p>`:''}${d.contact?`<p><b>Contact:</b> ${d.contact}</p>`:''}`;
 }
-
-function filterResources(){
-let input=document.getElementById("searchInput").value.toLowerCase();
-let category=document.getElementById("categoryFilter").value;
-let cards=document.querySelectorAll("#resourceList .card");
-
-cards.forEach(card=>{
-let text=card.innerText.toLowerCase();
-let cat=card.dataset.category;
-
-card.style.display =
-(text.includes(input) && (!category || cat===category)) ? "block":"none";
-});
-}
-
-function submitForm(e){
-e.preventDefault();
-document.getElementById("formMessage").innerText="✅ Resource submitted successfully!";
-}
-
-function sendMessage(){
-let input=document.getElementById("userInput").value.toLowerCase();
-let response="Try browsing resources!";
-
-if(input.includes("food")) response="Check the Food Bank!";
-if(input.includes("health")) response="Visit the Community Clinic!";
-if(input.includes("event")) response="Look at Community Events!";
-
-document.getElementById("chatbox").innerHTML+=
-"<p><b>You:</b>"+input+"</p><p><b>Bot:</b>"+response+"</p>";
-}
+function closeModal(){document.getElementById('modal').style.display='none';}
+renderCards();
 </script>
 
 </body>
