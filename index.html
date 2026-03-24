@@ -4,120 +4,243 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ultimate Community Resource Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-body { margin:0; font-family:'Poppins',sans-serif; background:#f4f6f8; color:#1f1f1f; }
-nav { position:fixed; top:0; width:100%; background:white; display:flex; justify-content:center; gap:25px; padding:15px; box-shadow:0 4px 12px rgba(0,0,0,0.1); z-index:1000; }
-nav a { font-weight:600; color:#0d3b66; cursor:pointer; text-decoration:none; }
-nav a:hover { color:#00a6fb; }
-section { padding:140px 40px; min-height:100vh; display:none; position:relative; animation:fade 0.6s ease; }
-section.active { display:block; }
-@keyframes fade { from {opacity:0; transform:translateY(20px);} to {opacity:1;} }
-.tip-box { margin:20px 0; padding:12px; background:#eaf4fc; border-left:4px solid #00a6fb; border-radius:8px; }
-.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
-.card { background:white; border-radius:14px; padding:15px; box-shadow:0 6px 15px rgba(0,0,0,0.08); transition:0.3s; cursor:pointer; position:relative; }
-.card:hover { transform:translateY(-6px); box-shadow:0 15px 30px rgba(0,0,0,0.15); }
-.card-image { height:150px; width:100%; background: repeating-linear-gradient(45deg, #ddd, #ddd 10px, #fff 10px, #fff 20px); border-radius:12px; display:flex; align-items:center; justify-content:center; font-family:'Great Vibes', cursive; color:#0d3b66; font-size:20px; margin-bottom:10px; }
-.modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; }
-.modal-content { background:white; padding:25px; border-radius:12px; width:80%; max-height:80%; overflow:auto; }
-.close {cursor:pointer; float:right; font-size:20px;}
-footer { background:#0d3b66; color:white; text-align:center; padding:25px; font-size:14px; }
-footer a { color:#00a6fb; text-decoration:none; }
-/* Animated Backgrounds */
-#home::before, #directory::before, #events::before, #highlights::before, #shops::before, #cafes::before, #parks::before, #houses::before, #about::before {
- content:""; position:absolute; width:200%; height:200%; z-index:-1; opacity:0.08;
+/* --- BASE STYLES --- */
+body {
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:#fefefe;
+  color:#111;
+  overflow-x:hidden;
 }
-#home::before { background: linear-gradient(135deg,#0d3b66,#00a6fb,#eaf4fc); animation:move 12s infinite alternate; }
-#directory::before { background-image:linear-gradient(#ddd 1px, transparent 1px), linear-gradient(90deg,#ddd 1px, transparent 1px); background-size:40px 40px; animation:grid 12s linear infinite; }
-#events::before { background:radial-gradient(circle at 20% 20%, #00a6fb33, transparent), radial-gradient(circle at 80% 80%, #0d3b6633, transparent); animation:float 8s infinite alternate; }
-#highlights::before { background:linear-gradient(45deg, #ffe0ac33, #ffacac33); animation:move 15s infinite alternate; }
-#shops::before, #cafes::before, #parks::before, #houses::before { background:linear-gradient(135deg,#ffd6f733,#c2f0f733); animation:move 10s infinite alternate; }
-#about::before { background:linear-gradient(135deg,#a6c1ee33,#fbc2eb33); animation:move 12s infinite alternate; }
-@keyframes move { to { transform:translate(-100px,-100px); } }
-@keyframes grid { to { background-position:40px 40px; } }
-@keyframes float { to { transform:translateY(-20px); } }
+h1,h2 {font-family:'Great Vibes',cursive; color:#b8860b; text-align:center; margin-bottom:20px;}
+p, li {font-size:1rem; line-height:1.5;}
+a {text-decoration:none;}
+
+/* --- NAVIGATION --- */
+nav {
+  position:fixed;
+  top:0;
+  width:100%;
+  background:#111;
+  display:flex;
+  justify-content:center;
+  gap:25px;
+  padding:15px;
+  z-index:1000;
+  box-shadow:0 4px 10px rgba(0,0,0,0.3);
+}
+nav a {
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+}
+nav a:hover {color:#b8860b;}
+
+/* --- SECTIONS --- */
+section {
+  padding:140px 40px 60px 40px;
+  min-height:100vh;
+  display:none;
+  position:relative;
+  overflow:hidden;
+}
+section.active {display:block;}
+.tip-box {
+  margin:20px 0;
+  padding:15px;
+  background:#f5f5f5;
+  border-left:4px solid #b8860b;
+  border-radius:8px;
+}
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:30px;
+}
+
+/* --- CARDS --- */
+.card {
+  background:#fff;
+  border-radius:16px;
+  padding:25px;
+  min-height:220px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.1);
+  transition:0.3s transform,0.3s box-shadow;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.card:hover {
+  transform:translateY(-8px) scale(1.03);
+  box-shadow:0 18px 40px rgba(0,0,0,0.3);
+}
+.card-title {
+  font-weight:600;
+  color:#111;
+  font-size:1.3rem;
+  margin-bottom:10px;
+}
+.card-detail {
+  font-size:1rem;
+  color:#333;
+  flex-grow:1;
+}
+.card-accent {position:absolute; top:0; left:0; width:100%; height:5px; background:#b8860b;}
+
+/* --- MODAL --- */
+.modal {
+  display:none;
+  position:fixed;
+  top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.6);
+  justify-content:center;
+  align-items:center;
+  z-index:2000;
+}
+.modal-content {
+  background:white;
+  padding:25px;
+  border-radius:14px;
+  width:80%;
+  max-width:700px;
+  max-height:80%;
+  overflow:auto;
+  box-shadow:0 15px 40px rgba(0,0,0,0.25);
+  animation:modalFade 0.4s ease;
+}
+@keyframes modalFade {from {transform:translateY(-30px); opacity:0;} to {transform:translateY(0); opacity:1;}}
+.close {cursor:pointer; float:right; font-size:1.2rem; font-weight:bold; color:#b8860b;}
+.close:hover {color:#111;}
+
+/* --- FOOTER --- */
+footer {
+  background:#111;
+  color:white;
+  padding:20px;
+  text-align:center;
+}
+footer a {color:#b8860b;}
+footer a:hover {color:white;}
+
+/* --- ANIMATED BACKGROUNDS --- */
+section::before {
+  content:""; position:absolute; width:200%; height:200%; z-index:-1; opacity:0.08;
+}
+#home::before {background:linear-gradient(45deg,#111,#222,#444); animation:bgMove 15s linear infinite alternate;}
+#directory::before {background-image:linear-gradient(#ccc 1px, transparent 1px),linear-gradient(90deg,#ccc 1px, transparent 1px); background-size:50px 50px; animation:gridMove 15s linear infinite;}
+#events::before {background:radial-gradient(circle at 20% 20%, #b8860b22, transparent),radial-gradient(circle at 80% 80%, #b8860b22, transparent); animation:float 10s infinite alternate;}
+#highlights::before {background:linear-gradient(120deg,#fff 25%,#b8860b10 25%,#b8860b10 50%,#fff 50%,#fff 75%,#b8860b10 75%,#b8860b10); background-size:60px 60px; animation:move 20s linear infinite alternate;}
+#shops::before {background:radial-gradient(circle at 50% 50%, #b8860b11, #111 100%); animation:float 15s infinite alternate;}
+#improve::before {background:linear-gradient(135deg,#222,#111,#b8860b11); animation:bgMove 15s linear infinite alternate;}
+#about::before {background:linear-gradient(45deg,#111,#333,#222,#b8860b11); animation:bgMove 15s linear infinite alternate;}
+
+@keyframes bgMove {to {transform:translate(-100px,-100px);}}
+@keyframes gridMove {to {background-position:50px 50px;}}
+@keyframes float {to {transform:translateY(-25px);}}
+
+form {
+  background:#f5f5f5;
+  padding:20px;
+  border-radius:12px;
+  max-width:500px;
+  margin:auto;
+}
+input, textarea, select, button {
+  width:100%; margin:8px 0; padding:10px; border-radius:8px; border:1px solid #ccc;
+}
+button {
+  background:#b8860b; color:white; font-weight:600; cursor:pointer; border:none;
+}
+button:hover {background:#a0730a;}
+
+/* --- RESPONSIVE MEDIA QUERIES --- */
+@media (max-width:1024px){
+  .grid {grid-template-columns:repeat(auto-fit,minmax(300px,1fr));}
+}
+@media (max-width:768px){
+  .grid {grid-template-columns:1fr;}
+  .card {min-height:200px; padding:20px;}
+}
+@media (max-width:480px){
+  .card {min-height:180px; padding:15px;}
+}
 </style>
 </head>
+
 <body>
 
 <nav>
-<a onclick="show('home')">Home</a>
-<a onclick="show('directory')">Directory</a>
-<a onclick="show('highlights')">Highlights</a>
-<a onclick="show('shops')">Shops</a>
-<a onclick="show('cafes')">Cafes</a>
-<a onclick="show('parks')">Parks</a>
-<a onclick="show('houses')">Houses</a>
-<a onclick="show('events')">Events</a>
-<a onclick="show('about')">About</a>
+  <a onclick="show('home')">Home</a>
+  <a onclick="show('directory')">Directory</a>
+  <a onclick="show('events')">Events</a>
+  <a onclick="show('highlights')">Highlights</a>
+  <a onclick="show('shops')">Shops & Food</a>
+  <a onclick="show('improve')">Submit Improvement</a>
+  <a onclick="show('about')">About</a>
 </nav>
 
 <!-- HOME -->
 <section id="home" class="active">
-<h1>Community Resource Hub</h1>
-<div class="tip-box">🚀 Tip: Use the menu to navigate and explore all resources, events, and community highlights.</div>
+<h1>Welcome to the Community Resource Hub</h1>
+<div class="tip-box">Current Date & Time: <span id="dateTime"></span></div>
 <div class="grid">
-<div class="card" onclick="show('directory')">Explore Resources</div>
-<div class="card" onclick="show('events')">View Events</div>
-<div class="card" onclick="show('highlights')">See Highlights</div>
+<div class="card" onclick="show('directory')"><div class="card-accent"></div><div class="card-title">Explore Resources</div><div class="card-detail">Discover local programs and services.</div></div>
+<div class="card" onclick="show('events')"><div class="card-accent"></div><div class="card-title">View Events</div><div class="card-detail">See community happenings with full details.</div></div>
+<div class="card" onclick="show('highlights')"><div class="card-accent"></div><div class="card-title">Highlights</div><div class="card-detail">Check key activities and achievements.</div></div>
+<div class="card" onclick="show('shops')"><div class="card-accent"></div><div class="card-title">Shops & Food</div><div class="card-detail">Restaurants, cafes, and local businesses.</div></div>
 </div>
 </section>
 
 <!-- DIRECTORY -->
 <section id="directory">
 <h2>Resource Directory</h2>
-<div class="tip-box">🔍 Tip: Click any resource to view full details.</div>
-<div class="grid" id="resources"></div>
-</section>
-
-<!-- HIGHLIGHTS -->
-<section id="highlights">
-<h2>Community Highlights</h2>
-<div class="tip-box">⭐ Tip: These are some of the most important activities and programs in your community.</div>
-<div class="grid" id="highlightsGrid"></div>
-</section>
-
-<!-- SHOPS -->
-<section id="shops">
-<h2>Local Shops</h2>
-<div class="tip-box">🛍️ Tip: Click shops for location, hours, and special info.</div>
-<div class="grid" id="shopsGrid"></div>
-</section>
-
-<!-- CAFES -->
-<section id="cafes">
-<h2>Cafes & Food</h2>
-<div class="tip-box">☕ Tip: Click cafes to view menus and details.</div>
-<div class="grid" id="cafesGrid"></div>
-</section>
-
-<!-- PARKS -->
-<section id="parks">
-<h2>Parks & Recreation</h2>
-<div class="tip-box">🌳 Tip: Click to learn about park amenities and locations.</div>
-<div class="grid" id="parksGrid"></div>
-</section>
-
-<!-- HOUSES -->
-<section id="houses">
-<h2>Housing Listings</h2>
-<div class="tip-box">🏠 Tip: Click listings for details and contact info.</div>
-<div class="grid" id="housesGrid"></div>
+<div class="tip-box">Click any resource for full details including location, contact, and hours.</div>
+<div class="grid" id="resourcesGrid"></div>
 </section>
 
 <!-- EVENTS -->
 <section id="events">
 <h2>Community Events</h2>
-<div class="tip-box">🎉 Tip: Click events to see full details like time, location, and contact.</div>
+<div class="tip-box">Click events to see full details like time, location, and contact.</div>
 <div class="grid" id="eventsGrid"></div>
+</section>
+
+<!-- HIGHLIGHTS -->
+<section id="highlights">
+<h2>Community Highlights</h2>
+<div class="tip-box">Spotlight on key achievements and activities in our community.</div>
+<div class="grid" id="highlightsGrid"></div>
+</section>
+
+<!-- SHOPS & FOOD -->
+<section id="shops">
+<h2>Shops & Food</h2>
+<div class="tip-box">Restaurants, cafes, and local businesses to support.</div>
+<div class="grid" id="shopsGrid"></div>
+</section>
+
+<!-- SUBMIT IMPROVEMENT -->
+<section id="improve">
+<h2>Submit Improvement Requests</h2>
+<div class="tip-box">We love your feedback! Submit suggestions to enhance our community hub.</div>
+<form onsubmit="submitForm(event)">
+<input placeholder="Your Name" required>
+<input placeholder="Email" required>
+<textarea placeholder="Your Suggestion / Feedback" rows="4" required></textarea>
+<button type="submit">Submit</button>
+<p id="formMessage"></p>
+</form>
 </section>
 
 <!-- ABOUT -->
 <section id="about">
 <h2>About This Website</h2>
-<div class="tip-box">ℹ️ This site serves as a community resource hub highlighting local resources, events, shops, parks, cafes, housing, and community highlights. It meets the Community Resource Hub challenge requirements.</div>
-<p>Created by Keira Yake. Sources: Community information collected from local directories, verified community programs, and official websites. All material is either original or free to use. This site is designed for competition purposes.</p>
+<div class="tip-box">This Community Resource Hub highlights local resources, events, and businesses. Developed by Keira Yake. All information is for community awareness. Copyright info below.</div>
 </section>
 
 <!-- MODAL -->
@@ -130,67 +253,34 @@ footer a { color:#00a6fb; text-decoration:none; }
 
 <!-- FOOTER -->
 <footer>
-&copy; 2026 Community Resource Hub | Created by Keira Yake | Email: <a href="mailto:keira.com">kyake@pcnet-wtc.org</a>
+&copy; 2026 Keira Yake | <a href="mailto:kyake@pcnet-wtc.org">kyake@pcnet-wtc.org</a> | Website created: March 24, 2026
 </footer>
 
 <script>
-function show(id){ document.querySelectorAll('section').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+function show(id){document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");}
+function updateDateTime(){const now=new Date();document.getElementById("dateTime").innerText=now.toLocaleString();}
+setInterval(updateDateTime,1000);updateDateTime();
 
-const resources=[
-{name:"Food Bank", details:"Free groceries", location:"123 Main St", phone:"555-1234", hours:"9-5"},
-{name:"Community Clinic", details:"Free healthcare", location:"456 Health Rd", phone:"555-5678", hours:"8-6"},
-{name:"Library", details:"Books + tutoring", location:"789 Library Ln", phone:"555-2222", hours:"9-8"}
-];
+/* --- DATA --- */
+const resources=[{name:"Food Bank",details:"Free groceries and assistance for families in need.",location:"123 Main St",phone:"555-1234",hours:"Mon-Fri 9AM-5PM"},{name:"Community Clinic",details:"Healthcare services, vaccines, and check-ups.",location:"456 Health Rd",phone:"555-5678",hours:"Mon-Fri 8AM-6PM"},{name:"Library",details:"Books, tutoring, and internet access for students.",location:"789 Library Ln",phone:"555-2222",hours:"Mon-Sat 9AM-8PM"}];
 
-const highlights=[
-{name:"Volunteer Program", details:"Connects residents to service opportunities", location:"Community Center"},
-{name:"Youth Workshop", details:"Skill-building and creative programs", location:"Youth Hall"},
-{name:"Annual Festival", details:"Celebrating community culture and music", location:"Central Park"}
-];
+const events=[{name:"Summer Festival",details:"Music, food, games, and fireworks.",location:"Central Park",date:"June 10, 2026",time:"12PM-8PM"},{name:"Farmers Market",details:"Fresh produce and local goods from vendors.",location:"Town Square",date:"Every Saturday",time:"8AM-2PM"},{name:"Art Walk",details:"Local artists showcase with workshops.",location:"Art District",date:"July 15, 2026",time:"10AM-6PM"},{name:"Community Picnic",details:"Family fun and food in the park.",location:"Lakeside Park",date:"August 5, 2026",time:"11AM-4PM"}];
 
-const shops=[
-{name:"Boutique Store", details:"Unique local products", location:"101 Market St"},
-{name:"Gift Shop", details:"Souvenirs and gifts", location:"102 Market St"}
-];
+const highlights=[{name:"Volunteer Program",details:"Connect residents to service opportunities.",location:"Community Center"},{name:"Youth Sports League",details:"Soccer, basketball, and swimming programs for youth.",location:"Local Sports Complex"},{name:"Neighborhood Clean-Up",details:"Community members participate in environmental projects.",location:"Various Locations"}];
 
-const cafes=[
-{name:"Cafe Aroma", details:"Coffee, pastries, and light meals", location:"12 Coffee Ln"},
-{name:"Bakery Bliss", details:"Fresh bread and desserts", location:"15 Baker Rd"}
-];
-
-const parks=[
-{name:"Central Park", details:"Playgrounds, picnic areas", location:"Downtown"},
-{name:"Lakeview Park", details:"Hiking trails and lake access", location:"West End"}
-];
-
-const houses=[
-{name:"Maple Street House", details:"3 bed, 2 bath", location:"123 Maple St", contact:"555-0001"},
-{name:"Oak Avenue Apartment", details:"2 bed, 1 bath", location:"456 Oak Ave", contact:"555-0002"}
-];
-
-const events=[
-{name:"Summer Festival", details:"Music, food, games", location:"Central Park", date:"June 10"},
-{name:"Farmers Market", details:"Fresh produce", location:"Town Square", date:"Every Saturday"},
-{name:"Art Walk", details:"Local artists + workshops", location:"Art District", date:"July 15"},
-{name:"Community Picnic", details:"Family fun + food", location:"Lakeside Park", date:"August 5"}
-];
+const shops=[{name:"Cafe Delight",details:"Cozy cafe with breakfast and coffee options.",location:"101 Coffee St",hours:"7AM-7PM",phone:"555-3333"},{name:"Fresh Mart",details:"Groceries, fresh produce, and household goods.",location:"202 Market Rd",hours:"8AM-8PM",phone:"555-4444"},{name:"Pet World",details:"Pet supplies and adoption events.",location:"303 Animal Ave",hours:"9AM-6PM",phone:"555-5555"}];
 
 function renderCards(){
-const addCards=(list,id)=>{const container=document.getElementById(id); list.forEach(d=>{
-let card=document.createElement('div'); card.className='card';
-card.innerHTML=`<div class='card-image'>${d.name}</div><h3>${d.name}</h3><p>${d.details}</p>`;
-card.onclick=()=>openModal(d); container.appendChild(card);
-});};
-addCards(resources,'resources'); addCards(highlights,'highlightsGrid'); addCards(shops,'shopsGrid'); addCards(cafes,'cafesGrid'); addCards(parks,'parksGrid'); addCards(houses,'housesGrid'); addCards(events,'eventsGrid');
+const r=document.getElementById("resourcesGrid");resources.forEach(d=>{let card=document.createElement("div");card.className="card";card.innerHTML=`<div class="card-accent"></div><div class="card-title">${d.name}</div><div class="card-detail">${d.details}</div>`;card.onclick=()=>openModal(d);r.appendChild(card);});
+const e=document.getElementById("eventsGrid");events.forEach(d=>{let card=document.createElement("div");card.className="card";card.innerHTML=`<div class="card-accent"></div><div class="card-title">${d.name}</div><div class="card-detail">${d.date} | ${d.time}</div>`;card.onclick=()=>openModal(d);e.appendChild(card);});
+const h=document.getElementById("highlightsGrid");highlights.forEach(d=>{let card=document.createElement("div");card.className="card";card.innerHTML=`<div class="card-accent"></div><div class="card-title">${d.name}</div><div class="card-detail">${d.details}</div>`;card.onclick=()=>openModal(d);h.appendChild(card);});
+const s=document.getElementById("shopsGrid");shops.forEach(d=>{let card=document.createElement("div");card.className="card";card.innerHTML=`<div class="card-accent"></div><div class="card-title">${d.name}</div><div class="card-detail">${d.details}</div>`;card.onclick=()=>openModal(d);s.appendChild(card);});
 }
 
-function openModal(d){
-document.getElementById('modal').style.display='flex';
-document.getElementById('modalText').innerHTML=`<h2>${d.name}</h2><p>${d.details}</p>${d.location?`<p><b>Location:</b> ${d.location}</p>`:''}${d.phone?`<p><b>Phone:</b> ${d.phone}</p>`:''}${d.hours?`<p><b>Hours:</b> ${d.hours}</p>`:''}${d.date?`<p><b>Date:</b> ${d.date}</p>`:''}${d.contact?`<p><b>Contact:</b> ${d.contact}</p>`:''}`;
-}
-function closeModal(){document.getElementById('modal').style.display='none';}
+function openModal(d){document.getElementById("modal").style.display="flex";document.getElementById("modalText").innerHTML=`<h2>${d.name}</h2><p>${d.details}</p><p><b>Location:</b> ${d.location}</p>${d.phone?`<p><b>Phone:</b> ${d.phone}</p>`:""}${d.hours?`<p><b>Hours:</b> ${d.hours}</p>`:""}${d.date?`<p><b>Date:</b> ${d.date}</p>`:""}${d.time?`<p><b>Time:</b> ${d.time}</p>`:""}`;}
+function closeModal(){document.getElementById("modal").style.display="none";}
+function submitForm(e){e.preventDefault(); document.getElementById("formMessage").innerText="✅ Suggestion submitted!";}
 renderCards();
 </script>
-
 </body>
 </html>
